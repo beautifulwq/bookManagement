@@ -7,18 +7,19 @@ public class myConsumer {
 
     public static void main(String[] args) {
         myConsumer c1 = new myConsumer();
-        c1.checkService();
+        myConsumer c2=new myConsumer();
+        c1.buyService();
+        c2.buyService();
         //c1.showInfo();
         //c1.addComment();
     }
 
     private ArrayList<myService> serviceArrayList;
-
     public myConsumer() {
         String sql = "select * from myService";
         serviceArrayList = TestQuery.showMyQuery(sql);
     }
-    
+
     void showInfo(){
         String sql = "select * from myService";
         serviceArrayList = TestQuery.showMyQuery(sql);
@@ -66,7 +67,7 @@ public class myConsumer {
             e.printStackTrace();
         }
         finally {
-            System.out.printf("exit programme");
+            System.out.printf("exit programme\n");
         }
     }
 
