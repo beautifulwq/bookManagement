@@ -32,26 +32,24 @@ public class TestQuery {
     }
 
     //自己写一个
-    public static ArrayList<myBook> showMyQuery(String sql) {
-        ArrayList<myBook> bookArrayList = new ArrayList<>();
+    public static ArrayList<myService> showMyQuery(String sql) {
+        ArrayList<myService> serviceArrayList = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) { // 循环遍历结果集里面的所有记录
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                String author = rs.getString("author");
-                String publisher = rs.getString("publisher");
-                LocalDate publishTime = rs.getDate("punlishTime").toLocalDate();
-                int type = rs.getInt("type");
-                int pageCnt = rs.getInt("pagecnt");
+                int useHour = rs.getInt("usehour");
+
+                int type = rs.getInt("typeid");
                 int haveCnt = rs.getInt("havecnt");
                 int buyCnt = rs.getInt("buycnt");
                 int comment = rs.getInt("comment");
                 int price = rs.getInt("price");
-                myBook book = new myBook(name, author, publisher, publishTime, type, price, pageCnt, buyCnt, haveCnt);
-                bookArrayList.add(book);
-                String desc = String.format("序号为%d，书名为%s，现有数量为%d，已购买次数为为%d。", id, name, haveCnt, buyCnt);
+                myService book = new myService(name, id, useHour, type, price, buyCnt, comment, haveCnt);
+                serviceArrayList.add(book);
+                String desc = String.format("序号为%d，品名为%s，现有数量为%d，已购买次数为为%d。", id, name, haveCnt, buyCnt);
                 System.out.println("当前信息为：" + desc);
             }
 
@@ -59,7 +57,7 @@ public class TestQuery {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return bookArrayList;
+        return serviceArrayList;
     }
 
     // 查询所有记录（默认排序）

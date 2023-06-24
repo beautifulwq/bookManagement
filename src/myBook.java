@@ -1,40 +1,30 @@
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public class myBook {
+ class myService {
     private String name;
     private int id;
-    private String author;
-    private String publisher;
-    private LocalDate publishDate;
+    private int useHour;
+
     private int type;
     private int price;
-    private int pageCnt;
+
     private int buyCnt;
     private int comment;
     private int haveCnt;
 
-    public myBook(int id) {
+    public myService(int id) {
         this.id = id;
     }
 
-    public myBook(String name, String author, String publisher, LocalDate publishDate, int type, int price, int pageCnt, int buyCnt, int haveCnt) {
+    public myService(String name, int id, int useHour, int type, int price, int buyCnt, int comment, int haveCnt) {
         this.name = name;
-        this.author = author;
-        this.publisher = publisher;
-        this.publishDate = publishDate;
+        this.id = id;
+        this.useHour = useHour;
         this.type = type;
         this.price = price;
-        this.pageCnt = pageCnt;
         this.buyCnt = buyCnt;
-        this.haveCnt = haveCnt;
-    }
-
-    public int getHaveCnt() {
-        return haveCnt;
-    }
-
-    public void setHaveCnt(int haveCnt) {
+        this.comment = comment;
         this.haveCnt = haveCnt;
     }
 
@@ -54,28 +44,12 @@ public class myBook {
         this.id = id;
     }
 
-    public String getAuthor() {
-        return author;
+    public int getUseHour() {
+        return useHour;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public LocalDate getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(LocalDate publishDate) {
-        this.publishDate = publishDate;
+    public void setUseHour(int useHour) {
+        this.useHour = useHour;
     }
 
     public int getType() {
@@ -86,20 +60,12 @@ public class myBook {
         this.type = type;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getPageCnt() {
-        return pageCnt;
-    }
-
-    public void setPageCnt(int pageCnt) {
-        this.pageCnt = pageCnt;
     }
 
     public int getBuyCnt() {
@@ -116,5 +82,13 @@ public class myBook {
 
     public void setComment(int comment) {
         this.comment = comment;
+    }
+
+    public int getHaveCnt() {
+        return haveCnt;
+    }
+
+    public void setHaveCnt(int haveCnt) {
+        this.haveCnt = haveCnt;
     }
 }
