@@ -7,7 +7,7 @@ public class myBook {
     private String author;
     private String publisher;
     private LocalDate publishDate;
-    private HashMap<Integer, String> type;
+    private int type;
     private int price;
     private int pageCnt;
     private int buyCnt;
@@ -15,10 +15,10 @@ public class myBook {
     private int haveCnt;
 
     public myBook(int id) {
-        this.id=id;
+        this.id = id;
     }
 
-    public myBook(String name, String author, String publisher, LocalDate publishDate, HashMap<Integer, String> type, int price, int pageCnt, int buyCnt, int haveCnt) {
+    public myBook(String name, String author, String publisher, LocalDate publishDate, int type, int price, int pageCnt, int buyCnt, int haveCnt) {
         this.name = name;
         this.author = author;
         this.publisher = publisher;
@@ -78,11 +78,11 @@ public class myBook {
         this.publishDate = publishDate;
     }
 
-    public HashMap<Integer, String> getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(HashMap<Integer, String> type) {
+    public void setType(int type) {
         this.type = type;
     }
 

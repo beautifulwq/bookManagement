@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 
 //演示JDBC的查询类操作
@@ -11,11 +14,13 @@ public class TestQuery {
     private static String driver_class = "com.mysql.cj.jdbc.Driver"; // 数据库的驱动类
     private static String dbUrl = "jdbc:mysql://localhost:3306/study?serverTimezone=GMT%2B8"; // 数据库的连接地址
     private static String dbUserName = "admin"; // 数据库的用户名
-    private static String dbPassword = ""; // 数据库的密码
+    private static String dbPassword = "wangqi111222"; // 数据库的密码
+
     static {
         try {
             Class.forName(driver_class); // 加载数据库的驱动（包含初始化动作）
-        } catch (ClassNotFoundException e) {
+        }
+        catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -24,6 +29,37 @@ public class TestQuery {
         showAllRecord(); // 查询所有记录（默认排序）
         showAllRecordByBirthday(); // 查询所有记录（按照生日倒序）
         showRecordGroupBySex(); // 查询性别分组
+    }
+
+    //自己写一个
+    public static ArrayList<myBook> showMyQuery(String sql) {
+        ArrayList<myBook> bookArrayList = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) { // 循环遍历结果集里面的所有记录
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String author = rs.getString("author");
+                String publisher = rs.getString("publisher");
+                LocalDate publishTime = rs.getDate("punlishTime").toLocalDate();
+                int type = rs.getInt("type");
+                int pageCnt = rs.getInt("pagecnt");
+                int haveCnt = rs.getInt("havecnt");
+                int buyCnt = rs.getInt("buycnt");
+                int comment = rs.getInt("comment");
+                int price = rs.getInt("price");
+                myBook book = new myBook(name, author, publisher, publishTime, type, price, pageCnt, buyCnt, haveCnt);
+                bookArrayList.add(book);
+                String desc = String.format("序号为%d，书名为%s，现有数量为%d，已购买次数为为%d。", id, name, haveCnt, buyCnt);
+                System.out.println("当前信息为：" + desc);
+            }
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookArrayList;
     }
 
     // 查询所有记录（默认排序）
@@ -43,8 +79,8 @@ public class TestQuery {
                 int sex = rs.getInt("sex"); // 获取指定字段的整型值
                 String course = rs.getString("course"); // 获取指定字段的字符串值
                 String desc = String.format("工号为%d，姓名为%s，出生日期为%s，性别为%s，课程为%s。",
-                        gonghao, name, getFormatDate(birthday), sex==0 ? "男性" : "女性", course);
-                System.out.println("当前教师信息为："+desc);
+                        gonghao, name, getFormatDate(birthday), sex == 0 ? "男性" : "女性", course);
+                System.out.println("当前教师信息为：" + desc);
             }
 //			rs.absolute(1); // 游标移到绝对位置的第几条，负数表示倒数的第几条
 //			rs.first(); // 游标移到第一条
@@ -57,7 +93,8 @@ public class TestQuery {
 //			rs.isLast(); // 是否为最后一条
 //			rs.isBeforeFirst(); // 是否在第一条之前
 //			rs.isAfterLast(); // 是否在最后一条之后
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -79,10 +116,11 @@ public class TestQuery {
                 int sex = rs.getInt("sex"); // 获取指定字段的整型值
                 String course = rs.getString("course"); // 获取指定字段的字符串值
                 String desc = String.format("工号为%d，姓名为%s，出生日期为%s，性别为%s，课程为%s。",
-                        gonghao, name, getFormatDate(birthday), sex==0 ? "男性" : "女性", course);
-                System.out.println("当前记录的教师信息如下："+desc);
+                        gonghao, name, getFormatDate(birthday), sex == 0 ? "男性" : "女性", course);
+                System.out.println("当前记录的教师信息如下：" + desc);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -100,10 +138,11 @@ public class TestQuery {
             while (rs.next()) { // 循环遍历结果集里面的所有记录
                 int sex = rs.getInt("sex"); // 获取指定字段的整型值
                 int count = rs.getInt("count"); // 获取指定字段的整型值
-                String desc = String.format("%s老师有%d位；", sex==0 ? "男" : "女", count);
+                String desc = String.format("%s老师有%d位；", sex == 0 ? "男" : "女", count);
                 System.out.print(desc);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,7 +12,7 @@ public class TestConnect {
         String dbUrl = "jdbc:mysql://localhost:3306/study?serverTimezone=GMT%2B8";
         //String dbUrl = "jdbc:mysql://localhost:3306/study";
         String dbUserName = "admin"; // 数据库的用户名
-        String dbPassword = ""; // 数据库的密码
+        String dbPassword = "wangqi111222"; // 数据库的密码
         try {
             Class.forName(driver_class); // 加载数据库的驱动（包含初始化动作）
             // 根据连接地址、用户名、密码来获取数据库的连接
