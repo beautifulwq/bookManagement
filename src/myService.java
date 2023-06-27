@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.HashMap;
 
- class myService {
+class myService {
     private String name;
     private int id;
     private int useHour;
@@ -13,6 +13,10 @@ import java.util.HashMap;
     private int comment;
     private int haveCnt;
 
+
+    private String imagePath;
+
+    public myService(){}
     public myService(int id) {
         this.id = id;
     }
@@ -28,8 +32,28 @@ import java.util.HashMap;
         this.haveCnt = haveCnt;
     }
 
+    public myService(String name, int id, int useHour, int type, int price, int buyCnt, int comment, int haveCnt, String path) {
+        this.name = name;
+        this.id = id;
+        this.useHour = useHour;
+        this.type = type;
+        this.price = price;
+        this.buyCnt = buyCnt;
+        this.comment = comment;
+        this.haveCnt = haveCnt;
+    this.imagePath=path;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public void setName(String name) {

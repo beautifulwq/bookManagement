@@ -47,7 +47,9 @@ public class TestQuery {
                 int buyCnt = rs.getInt("buycnt");
                 int comment = rs.getInt("comment");
                 int price = rs.getInt("price");
-                myService book = new myService(name, id, useHour, type, price, buyCnt, comment, haveCnt);
+
+                String path=rs.getString("imagepath");
+                myService book = new myService(name, id, useHour, type, price, buyCnt, comment, haveCnt,path);
                 serviceArrayList.add(book);
                 String desc = String.format("序号为%d，品名为%s，现有数量为%d，已购买次数为为%d。", id, name, haveCnt, buyCnt);
                 System.out.println("当前信息为：" + desc);
