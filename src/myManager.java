@@ -7,17 +7,43 @@ import java.util.Scanner;
 class myManager {
     public static void main(String[] args) {
         myManager m1 = new myManager();
-        m1.serviceArrayList.forEach(o1 -> {
-            System.out.println(o1.getImagePath());
-        });
-        m1.deleteService();
-        m1.showInfo();
+      m1.addService();
         // m1.addService();
         // m1.addImage(0);
 
     }
 
     private ArrayList<myService> serviceArrayList;
+
+    Scanner in=new Scanner(System.in);
+
+    String getValidString() {
+        String anw = null;
+        try  {
+            anw = in.nextLine();
+        }
+        catch (InputMismatchException e) {
+            e.printStackTrace();
+        }
+        return anw;
+    }
+
+    int getValidInt() {
+        int id = -1;
+        try {
+           // Scanner in = new Scanner(System.in);
+            id = in.nextInt();
+            while (id < 0 || id >= serviceArrayList.size()) {
+                System.out.printf("error id,should be [0,%d)\nchoose new id\n", serviceArrayList.size());
+                id = in.nextInt();
+            }
+            in.close();
+        }
+        catch (InputMismatchException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
 
     public myManager() {
         String sql = "select * from myService";
@@ -29,8 +55,9 @@ class myManager {
         serviceArrayList = TestQuery.showMyQuery(sql);
     }
 
-    void addImage(int id) {
-        String path = showImage.chooseImage();
+    void addImagePre(int id) {
+        String path;
+        path = showImage.chooseImage();
 //        String path="P:/playground/javaplay/bookmanage/bookmanage/picture/bing.png";
         serviceArrayList.get(id).setImagePath(path);
 
@@ -43,7 +70,7 @@ class myManager {
         }
     }
 
-    void showImage(int id) {
+    void showImagePre(int id) {
         try {
             showImage.show(serviceArrayList.get(id).getImagePath());
         }
@@ -55,12 +82,9 @@ class myManager {
 
     void checkService() {
         System.out.printf("choose check id,should be [0,%d)\n", serviceArrayList.size());
-        try (Scanner in = new Scanner(System.in)) {
-            int id = in.nextInt();
-            while (id < 0 || id >= serviceArrayList.size()) {
-                System.out.printf("error id,should be [0,%d)\nchoose comment id\n", serviceArrayList.size());
-                id = in.nextInt();
-            }
+        try {
+            int id;
+            id = getValidInt();
             String sql = String.format("select * from myservice natural join typetable where myservice.id=%d", id);
             TestQuery.showMyQuery(sql);
         }
@@ -77,15 +101,10 @@ class myManager {
         }
 
         System.out.println("choose sell id");
-        Scanner in = new Scanner(System.in);
 
         try {
-            int delId = in.nextInt();
-            while (delId < 0 || delId >= serviceArrayList.size()) {
-                System.out.printf("error index id, should be [0,%d)\n", serviceArrayList.size());
-                System.out.println("scan in new sell id");
-                delId = in.nextInt();
-            }
+            int delId;
+            delId = getValidInt();
             myService book = serviceArrayList.get(delId);
             int haveCnt = book.getHaveCnt();
             if (haveCnt <= 0) {
@@ -123,26 +142,16 @@ class myManager {
         }
 
         System.out.println("choose delete id");
-        Scanner in = new Scanner(System.in);
-
         try {
-            int delId = in.nextInt();
-            while (delId < 0 || delId >= serviceArrayList.size()) {
-                System.out.printf("error index id, should be [0,%d)\n", serviceArrayList.size());
-                System.out.println("scan in new delete id");
-                delId = in.nextInt();
-            }
+            int delId;
+            delId = getValidInt();
             myService book = serviceArrayList.get(delId);
-            int haveCnt = book.getHaveCnt();
-            if (haveCnt <= 0) {
-                System.out.println("have cnt=0,can not delete");
-                return;
-            }
-            else book.setHaveCnt(haveCnt - 1);
+            serviceArrayList.remove(delId);
             System.out.println("delete success");
             String sql1 = String.format("delete from myService where id=%d", delId);
             try {
                 TestManage.updateRecord(sql1);
+                resetId();
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -153,9 +162,6 @@ class myManager {
             System.out.println("exit delete");
             e.printStackTrace();
         }
-        finally {
-            System.out.printf("exit programme\n");
-        }
     }
 
     void changePrice() {
@@ -165,22 +171,15 @@ class myManager {
         }
 
         System.out.println("choose change id");
-        Scanner in = new Scanner(System.in);
+
 
         try {
-            int changeId = in.nextInt();
-            while (changeId < 0 || changeId >= serviceArrayList.size()) {
-                System.out.printf("error index id, should be [0,%d)\n", serviceArrayList.size());
-                System.out.println("scan in new change id");
-                changeId = in.nextInt();
-            }
+            int changeId;
+            changeId = getValidInt();
             myService book = serviceArrayList.get(changeId);
             System.out.println("choose new price");
-            int price = in.nextInt();
-            while (price < 0) {
-                System.out.println("price<0 error,re in");
-                price = in.nextInt();
-            }
+            int price;
+            price = getValidInt();
             book.setPrice(price);
             System.out.println("change price success");
             String sql1 = String.format("update myService set price=%d where id=%d", price, changeId);
@@ -202,43 +201,67 @@ class myManager {
     }
 
     void addService() {
-        myService service = new myService();
-        Scanner in = new Scanner(System.in);
-
-        System.out.println("adding service\n");
-        System.out.print("in name--");
-        String name = in.nextLine();
-        service.setName(name);
-
-        System.out.printf("\nin useHour--");
-        int useHour = in.nextInt();
-        service.setUseHour(useHour);
-
-        System.out.printf("\nin type--");
-        int type = in.nextInt();
-        service.setType(type);
-
-        System.out.printf("\nin price--");
-        int price = in.nextInt();
-        service.setPrice(price);
-
-        System.out.printf("\nin haveCnt--");
-        int haveCnt = in.nextInt();
-        service.setHaveCnt(haveCnt);
-
-        //add id
-        int id = serviceArrayList.size();
-        service.setId(serviceArrayList.size());
-        serviceArrayList.add(service);
-
-        String sql = String.format("INSERT INTO `myservice` (`id`, `name`, `usehour`, `typeid`, `price`, `havecnt`) VALUES ('%d', '%s', '%d', '%d', '%d', '%d');\n", id, name, useHour, type, price, haveCnt);
         try {
+            myService service = new myService();
+            System.out.println("adding service\n");
+            System.out.print("in name--");
+            String name = getValidString();
+            service.setName(name);
+
+            System.out.printf("\nin useHour--");
+            int useHour;
+            useHour = in.nextInt();
+            service.setUseHour(useHour);
+
+            System.out.printf("\nin type--");
+            int type = in.nextInt();
+            service.setType(type);
+
+            System.out.printf("\nin price--");
+            int price = in.nextInt();
+            service.setPrice(price);
+
+            System.out.printf("\nin haveCnt--");
+            int haveCnt = in.nextInt();
+            service.setHaveCnt(haveCnt);
+
+            //add id
+            int id=-1;
+            for(myService i:serviceArrayList){
+                id=Integer.max(id,i.getId());
+            }
+            id=id+1;
+            service.setId(serviceArrayList.size());
+            serviceArrayList.add(service);
+
+
+            String sql = String.format("INSERT INTO `myservice` (`id`, `name`, `usehour`, `typeid`, `price`, `havecnt`) VALUES ('%d', '%s', '%d', '%d', '%d', '%d');\n", id, name, useHour, type, price, haveCnt);
+
             TestManage.updateRecord(sql);
+
+            resetId();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    void resetId(){
+        int cnt=0;
+        for(myService service:serviceArrayList){
+            int oriId=service.getId();
+            service.setId(cnt);
+            String sql=String.format("UPDATE `myservice` SET `id` = '%d' WHERE (`id` = '%d');\n",cnt,oriId);
+            try {
+                TestManage.updateRecord(sql);
+            }
+            catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            cnt++;
+        }
+        String sql = "select * from myService";
+        serviceArrayList = TestQuery.showMyQuery(sql);
+    }
 }
 
