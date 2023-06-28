@@ -1,0 +1,92 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+myManager *-- myService :包含
+
+myConsumer *-- myService :包含
+
+myManager --> showImage :调用
+
+myManager --> TestQuery :调用
+
+myManager --> TestManage :调用
+
+myConsumer --> showImage :调用
+
+myConsumer --> TestQuery :调用
+
+myConsumer --> TestManage :调用
+
+together {
+    class myService
+    class myConsumer
+
+}
+TestManage-TestQuery
+
+
+class myManager{
+    - ArrayList<myService> serviceArrayList;
+
+    + myManager();
+
+    ~ void showInfo();
+
+    ~ void addImage(int id)
+
+    ~ void showImage(int id)
+
+    ~ void checkService();
+
+    ~ void sellService();
+
+    ~ void deleteService();
+
+    ~ void changePrice();
+
+    ~ void addService()
+
+}
+
+class myConsumer{
+    - ArrayList<myService> serviceArrayList;
+
+    ~ void showInfo();
+
+    ~ void buyService();
+
+    ~ void checkService();
+
+    ~ void addComment()
+
+}
+
+class myService{
+    - String name;
+    - int id;
+    - int useHour;
+    - int type;
+    - int price;
+    - int buyCnt;
+    - int comment;
+    - int haveCnt;
+    - String imagePath;
+}
+
+class showImage{
+
+    + static void show(String path);
+
+    + static String chooseImage();
+}
+
+class TestQuery{
+    + static ArrayList<myService> showMyQuery(String sql);
+}
+
+class TestManage{
+    + static void updateRecord(String sql);
+
+}
+
+@enduml

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class myManager {
+class myManager {
     public static void main(String[] args) {
         myManager m1 = new myManager();
-       m1.serviceArrayList.forEach(o1-> {
-       System.out.println(o1.getImagePath());
-       });
-       m1.deleteService();
-       m1.showInfo();
-      // m1.addService();
+        m1.serviceArrayList.forEach(o1 -> {
+            System.out.println(o1.getImagePath());
+        });
+        m1.deleteService();
+        m1.showInfo();
+        // m1.addService();
         // m1.addImage(0);
 
     }
@@ -231,7 +231,7 @@ public class myManager {
         service.setId(serviceArrayList.size());
         serviceArrayList.add(service);
 
-        String sql=String.format("INSERT INTO `myservice` (`id`, `name`, `usehour`, `typeid`, `price`, `havecnt`) VALUES ('%d', '%s', '%d', '%d', '%d', '%d');\n",id,name,useHour,type,price,haveCnt);
+        String sql = String.format("INSERT INTO `myservice` (`id`, `name`, `usehour`, `typeid`, `price`, `havecnt`) VALUES ('%d', '%s', '%d', '%d', '%d', '%d');\n", id, name, useHour, type, price, haveCnt);
         try {
             TestManage.updateRecord(sql);
         }
