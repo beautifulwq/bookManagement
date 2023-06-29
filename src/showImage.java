@@ -58,7 +58,7 @@ class showImage {
             File selectedFile = jfc.getSelectedFile();
             filePath = selectedFile.getPath();
             filePath = filePath.replaceAll("\\\\", "/");
-            System.out.println(filePath);
+          //  System.out.println(filePath);
         }
         return filePath;
     }

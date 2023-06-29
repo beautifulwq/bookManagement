@@ -5,6 +5,7 @@ out/
 sql.sql
 picture/
 openjfx-20.0.1_windows-x64_bin-sdk/
+src/testdata/testData.csv
 ### Eclipse ###
 .apt_generated
 .classpath

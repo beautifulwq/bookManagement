@@ -1,43 +1,50 @@
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class myManager {
     public static void main(String[] args) {
         myManager m1 = new myManager();
-      m1.addService();
-        // m1.addService();
-        // m1.addImage(0);
+        m1.resetId();
 
     }
 
     private ArrayList<myService> serviceArrayList;
 
-    Scanner in=new Scanner(System.in);
+    Scanner in = new Scanner(System.in);
 
     String getValidString() {
-        String anw = null;
-        try  {
-            anw = in.nextLine();
+
+        try {
+            String anw = null;
+            if (in.hasNextLine()) {
+
+                anw = in.nextLine();
+            }
+            else System.out.println("No input string in getValidString");
+            return anw;
         }
         catch (InputMismatchException e) {
             e.printStackTrace();
         }
-        return anw;
+        return null;
     }
 
     int getValidInt() {
         int id = -1;
         try {
-           // Scanner in = new Scanner(System.in);
-            id = in.nextInt();
+
+//            String tem = in.next();
+//            id = Integer.parseInt(tem);
+            id=in.nextInt();
             while (id < 0 || id >= serviceArrayList.size()) {
                 System.out.printf("error id,should be [0,%d)\nchoose new id\n", serviceArrayList.size());
                 id = in.nextInt();
             }
-            in.close();
+
         }
         catch (InputMismatchException e) {
             e.printStackTrace();
@@ -46,13 +53,15 @@ class myManager {
     }
 
     public myManager() {
-        String sql = "select * from myService";
+        String sql = "select * from myService order by id;";
         serviceArrayList = TestQuery.showMyQuery(sql);
+
     }
 
     void showInfo() {
-        String sql = "select * from myService";
-        serviceArrayList = TestQuery.showMyQuery(sql);
+        String sql = "select * from myservice left join typetable on myservice.id=typetable.id order by myservice.id;";
+        // serviceArrayList = TestQuery.showMyQuery(sql);
+        TestQuery.showOneServiceQuery(sql);
     }
 
     void addImagePre(int id) {
@@ -81,12 +90,12 @@ class myManager {
     }
 
     void checkService() {
-        System.out.printf("choose check id,should be [0,%d)\n", serviceArrayList.size());
+        System.out.printf("choose check id,should be [0,%d)----", serviceArrayList.size());
+        int id;
+        id = getValidInt();
         try {
-            int id;
-            id = getValidInt();
-            String sql = String.format("select * from myservice natural join typetable where myservice.id=%d", id);
-            TestQuery.showMyQuery(sql);
+            String sql = String.format("select * from myservice join typetable on myservice.typeid=typetable.id where myservice.id=%d", id);
+            TestQuery.showOneServiceQuery(sql);
         }
         catch (InputMismatchException e) {
             e.printStackTrace();
@@ -142,26 +151,30 @@ class myManager {
         }
 
         System.out.println("choose delete id");
-        try {
-            int delId;
-            delId = getValidInt();
-            myService book = serviceArrayList.get(delId);
-            serviceArrayList.remove(delId);
-            System.out.println("delete success");
-            String sql1 = String.format("delete from myService where id=%d", delId);
-            try {
-                TestManage.updateRecord(sql1);
-                resetId();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
+//        try {
+        int delId;
+        delId = getValidInt();
+        for (myService s : serviceArrayList) {
+            if (s.getId() == delId) {
+                System.out.println("delete success");
+                break;
             }
         }
-        catch (InputMismatchException e) {
-            System.out.println("error input kind, should be int");
-            System.out.println("exit delete");
+        serviceArrayList.removeIf(o1 -> o1.getId() == delId);
+        String sql1 = String.format("delete from myService where id=%d", delId);
+        try {
+            TestManage.updateRecord(sql1);
+            resetId();
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
+//        }
+//        catch (InputMismatchException e) {
+//            System.out.println("error input kind, should be int");
+//            System.out.println("exit delete");
+//            e.printStackTrace();
+//        }
     }
 
     void changePrice() {
@@ -226,19 +239,15 @@ class myManager {
             service.setHaveCnt(haveCnt);
 
             //add id
-            int id=-1;
-            for(myService i:serviceArrayList){
-                id=Integer.max(id,i.getId());
-            }
-            id=id+1;
+            int id = serviceArrayList.size();
             service.setId(serviceArrayList.size());
             serviceArrayList.add(service);
-
 
             String sql = String.format("INSERT INTO `myservice` (`id`, `name`, `usehour`, `typeid`, `price`, `havecnt`) VALUES ('%d', '%s', '%d', '%d', '%d', '%d');\n", id, name, useHour, type, price, haveCnt);
 
             TestManage.updateRecord(sql);
 
+            //reset
             resetId();
         }
         catch (SQLException e) {
@@ -246,19 +255,21 @@ class myManager {
         }
     }
 
-    void resetId(){
-        int cnt=0;
-        for(myService service:serviceArrayList){
-            int oriId=service.getId();
+    void resetId() {
+        int cnt = 0;
+        for (myService service : serviceArrayList) {
+            int oriId = service.getId();
+            String name = service.getName();
             service.setId(cnt);
-            String sql=String.format("UPDATE `myservice` SET `id` = '%d' WHERE (`id` = '%d');\n",cnt,oriId);
+            String sql = String.format("UPDATE `myservice` SET `id` = '%d' WHERE (`id` = '%d' and `name` = '%s');\n", cnt, oriId, name);
             try {
                 TestManage.updateRecord(sql);
+                cnt++;
             }
             catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            cnt++;
+
         }
         String sql = "select * from myService";
         serviceArrayList = TestQuery.showMyQuery(sql);
