@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class myManager {
+public class myManager extends commonRole {
     public static void main(String[] args) {
         myManager m1 = new myManager();
 
@@ -63,11 +63,7 @@ public class myManager {
 
     }
 
-    public void showInfo() {
-        String sql = "select * from myservice left join typetable on myservice.id=typetable.id order by myservice.id;";
-        // serviceArrayList = sqlManage.TestQuery.showMyQuery(sql);
-        TestQuery.showOneServiceQuery(sql);
-    }
+
 
     public void addImagePre(int id) {
         String path;

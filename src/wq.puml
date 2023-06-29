@@ -1,4 +1,4 @@
-@startuml
+@startuml wq
 'https://plantuml.com/class-diagram
 
 role.myManager *-- role.myService :包含
@@ -17,26 +17,36 @@ role.myConsumer --> sqlManage.TestQuery :调用
 
 role.myConsumer --> sqlManage.TestManage :调用
 
-together {
-    class role.myService
-    class role.myConsumer
+' together {
+'     class role.myService
+'     class role.myConsumer
+
+' }
+
+
+class sqlManage.TestQuery{
+    + static ArrayList<role.myService> showMyQuery(String sql);
+}
+
+class sqlManage.TestManage{
+    + static void updateRecord(String sql);
 
 }
-sqlManage.TestManage-sqlManage.TestQuery
 
+class role.commonRole{
+     + void showInfo()
 
-class role.myManager{
+     + void checkService()
+}
+
+class role.myManager extends role.commonRole{
     - ArrayList<role.myService> serviceArrayList;
 
     + role.myManager();
 
-    ~ void showInfo();
-
     ~ void addImage(int id)
 
     ~ void tools.showImage(int id)
-
-    ~ void checkService();
 
     ~ void sellService();
 
@@ -48,14 +58,10 @@ class role.myManager{
 
 }
 
-class role.myConsumer{
+class role.myConsumer extends role.commonRole{
     - ArrayList<role.myService> serviceArrayList;
 
-    ~ void showInfo();
-
     ~ void buyService();
-
-    ~ void checkService();
 
     ~ void addComment()
 
@@ -80,13 +86,11 @@ class tools.showImage{
     + static String chooseImage();
 }
 
-class sqlManage.TestQuery{
-    + static ArrayList<role.myService> showMyQuery(String sql);
+class tools.showWelcome{
+    ~ void begin()
+
+    + static void showGuide(int role)
 }
 
-class sqlManage.TestManage{
-    + static void updateRecord(String sql);
-
-}
 
 @enduml
