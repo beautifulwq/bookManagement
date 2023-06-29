@@ -1,3 +1,8 @@
+package role;
+
+import sqlManage.TestManage;
+import sqlManage.TestQuery;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -7,7 +12,7 @@ public class myConsumer {
 
     public static void main(String[] args) {
         myConsumer c1 = new myConsumer();
-        myConsumer c2=new myConsumer();
+        myConsumer c2 = new myConsumer();
         c1.buyService();
         c2.buyService();
         //c1.showInfo();
@@ -15,17 +20,18 @@ public class myConsumer {
     }
 
     private ArrayList<myService> serviceArrayList;
+
     public myConsumer() {
-        String sql = "select * from myService";
-        serviceArrayList = TestQuery.showMyQuery(sql);
+        String sql = "select * from myservice";
+        serviceArrayList = (ArrayList<myService>) TestQuery.showMyQuery(sql);
     }
 
-    void showInfo(){
-        String sql = "select * from myService";
-        serviceArrayList = TestQuery.showMyQuery(sql);
+    public void showInfo() {
+        String sql = "select * from myservice";
+        serviceArrayList = (ArrayList<myService>) TestQuery.showMyQuery(sql);
     }
 
-    void buyService() {
+    public void buyService() {
         if (serviceArrayList.size() == 0) {
             System.out.println("no book,can not buy");
             return;
@@ -51,8 +57,8 @@ public class myConsumer {
             int buyCnt = book.getBuyCnt();
             book.setBuyCnt(buyCnt + 1);
             System.out.println("buy success");
-            String sql1 = String.format("update myService set havecnt=havecnt-1 where id=%d", buyId);
-            String sql2 = String.format("update myService set buycnt=buycnt+1 where id=%d", buyId);
+            String sql1 = String.format("update myservice set havecnt=havecnt-1 where id=%d", buyId);
+            String sql2 = String.format("update myservice set buycnt=buycnt+1 where id=%d", buyId);
             try {
                 TestManage.updateRecord(sql1);
                 TestManage.updateRecord(sql2);
@@ -71,24 +77,24 @@ public class myConsumer {
         }
     }
 
-    void checkService(){
-        System.out.printf("choose check id,should be [0,%d)\n",serviceArrayList.size());
-        try(Scanner in=new Scanner(System.in)){
-            int id=in.nextInt();
-            while (id<0||id>=serviceArrayList.size()){
-                System.out.printf("error id,should be [0,%d)\nchoose comment id\n",serviceArrayList.size());
-                id=in.nextInt();
+    public void checkService() {
+        System.out.printf("choose check id,should be [0,%d)\n", serviceArrayList.size());
+        try (Scanner in = new Scanner(System.in)) {
+            int id = in.nextInt();
+            while (id < 0 || id >= serviceArrayList.size()) {
+                System.out.printf("error id,should be [0,%d)\nchoose comment id\n", serviceArrayList.size());
+                id = in.nextInt();
             }
-            String sql=String.format("select * from myservice natural join typetable where myservice.id=%d",id);
+            String sql = String.format("select * from myservice natural join typetable where myservice.id=%d", id);
             TestQuery.showMyQuery(sql);
         }
-        catch (InputMismatchException e){
+        catch (InputMismatchException e) {
             e.printStackTrace();
         }
 
     }
 
-    void addComment() {
+    public void addComment() {
         if (serviceArrayList.size() == 0) {
             System.out.println("no service,can not comment");
             return;
@@ -97,10 +103,10 @@ public class myConsumer {
         System.out.println("choose comment star,should be [0 5]");
         try (Scanner in = new Scanner(System.in);) {
             System.out.println("choose comment id");
-            int id=in.nextInt();
-            while (id<0||id>=serviceArrayList.size()){
-              System.out.printf("error id,should be [0,%d)\nchoose comment id",serviceArrayList.size());
-                id=in.nextInt();
+            int id = in.nextInt();
+            while (id < 0 || id >= serviceArrayList.size()) {
+                System.out.printf("error id,should be [0,%d)\nchoose comment id", serviceArrayList.size());
+                id = in.nextInt();
             }
 
             System.out.println("choose star,should be [0,5]");
@@ -109,7 +115,7 @@ public class myConsumer {
                 System.out.println("error star range,should be [0,5]");
                 commentStar = in.nextInt();
             }
-            String sql=String.format("UPDATE `study`.`myservice` SET `comment` = '%d' WHERE (`id` = '%d');",commentStar,id);
+            String sql = String.format("UPDATE `study`.`myservice` SET `comment` = '%d' WHERE (`id` = '%d');", commentStar, id);
             TestManage.updateRecord(sql);
         }
         catch (InputMismatchException e) {

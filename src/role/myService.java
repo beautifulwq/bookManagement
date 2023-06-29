@@ -1,7 +1,9 @@
+package role;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 
-class myService {
+public class myService {
     private String name;
     private int id;
     private int useHour;

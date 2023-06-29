@@ -1,13 +1,13 @@
+package sqlManage;
+
+import role.myService;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 //演示JDBC的查询类操作
 public class TestQuery {

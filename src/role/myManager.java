@@ -1,14 +1,19 @@
-import java.io.IOException;
+package role;
+
+import sqlManage.TestManage;
+import sqlManage.TestQuery;
+import tools.showImage;
+import tools.showWelcome;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-class myManager {
+public class myManager {
     public static void main(String[] args) {
         myManager m1 = new myManager();
-        m1.resetId();
+
 
     }
 
@@ -33,13 +38,13 @@ class myManager {
         return null;
     }
 
-    int getValidInt() {
+    public int getValidInt() {
         int id = -1;
         try {
 
 //            String tem = in.next();
 //            id = Integer.parseInt(tem);
-            id=in.nextInt();
+            id = in.nextInt();
             while (id < 0 || id >= serviceArrayList.size()) {
                 System.out.printf("error id,should be [0,%d)\nchoose new id\n", serviceArrayList.size());
                 id = in.nextInt();
@@ -53,18 +58,18 @@ class myManager {
     }
 
     public myManager() {
-        String sql = "select * from myService order by id;";
+        String sql = "select * from myservice order by id;";
         serviceArrayList = TestQuery.showMyQuery(sql);
 
     }
 
-    void showInfo() {
+    public void showInfo() {
         String sql = "select * from myservice left join typetable on myservice.id=typetable.id order by myservice.id;";
-        // serviceArrayList = TestQuery.showMyQuery(sql);
+        // serviceArrayList = sqlManage.TestQuery.showMyQuery(sql);
         TestQuery.showOneServiceQuery(sql);
     }
 
-    void addImagePre(int id) {
+    public void addImagePre(int id) {
         String path;
         path = showImage.chooseImage();
 //        String path="P:/playground/javaplay/bookmanage/bookmanage/picture/bing.png";
@@ -79,7 +84,7 @@ class myManager {
         }
     }
 
-    void showImagePre(int id) {
+    public void showImagePre(int id) {
         try {
             showImage.show(serviceArrayList.get(id).getImagePath());
         }
@@ -89,7 +94,7 @@ class myManager {
         }
     }
 
-    void checkService() {
+    public void checkService() {
         System.out.printf("choose check id,should be [0,%d)----", serviceArrayList.size());
         int id;
         id = getValidInt();
@@ -103,9 +108,9 @@ class myManager {
 
     }
 
-    void sellService() {
+    public void sellService() {
         if (serviceArrayList.size() == 0) {
-            System.out.println("no book,can not sell");
+            System.out.println("no service,can not sell");
             return;
         }
 
@@ -124,8 +129,8 @@ class myManager {
             int buyCnt = book.getBuyCnt();
             book.setBuyCnt(buyCnt + 1);
             System.out.println("sell success");
-            String sql1 = String.format("update myService set havecnt=havecnt-1 where id=%d", delId);
-            String sql2 = String.format("update myService set buycnt=buycnt+1 where id=%d", delId);
+            String sql1 = String.format("update myservice set havecnt=havecnt-1 where id=%d", delId);
+            String sql2 = String.format("update myservice set buycnt=buycnt+1 where id=%d", delId);
             try {
                 TestManage.updateRecord(sql1);
                 TestManage.updateRecord(sql2);
@@ -144,7 +149,7 @@ class myManager {
         }
     }
 
-    void deleteService() {
+    public void deleteService() {
         if (serviceArrayList.size() == 0) {
             System.out.println("no book,can not delete");
             return;
@@ -177,7 +182,7 @@ class myManager {
 //        }
     }
 
-    void changePrice() {
+    public void changePrice() {
         if (serviceArrayList.size() == 0) {
             System.out.println("no book,can not change");
             return;
@@ -192,10 +197,10 @@ class myManager {
             myService book = serviceArrayList.get(changeId);
             System.out.println("choose new price");
             int price;
-            price = getValidInt();
+            price = in.nextInt();
             book.setPrice(price);
             System.out.println("change price success");
-            String sql1 = String.format("update myService set price=%d where id=%d", price, changeId);
+            String sql1 = String.format("update myservice set price=%d where id=%d", price, changeId);
             try {
                 TestManage.updateRecord(sql1);
             }
@@ -208,16 +213,14 @@ class myManager {
             System.out.println("exit change");
             e.printStackTrace();
         }
-        finally {
-            System.out.printf("exit programme\n");
-        }
     }
 
-    void addService() {
+    public void addService() {
         try {
             myService service = new myService();
             System.out.println("adding service\n");
             System.out.print("in name--");
+            String rubbish = getValidString();
             String name = getValidString();
             service.setName(name);
 
@@ -274,5 +277,48 @@ class myManager {
         String sql = "select * from myService";
         serviceArrayList = TestQuery.showMyQuery(sql);
     }
+
+    public void start() {
+        showWelcome.showGuide(1);
+        int choose;
+        choose = in.nextInt();
+        while (choose >= 0 && choose <= 7) {
+            switch (choose) {
+                case 0:
+                    showInfo();
+                    break;
+                case 1:
+                    checkService();
+                    break;
+                case 2:
+                    addService();
+                    break;
+                case 3:
+                    sellService();
+                    break;
+                case 4:
+                    deleteService();
+                    break;
+                case 5:
+                    changePrice();
+                    break;
+                case 7:
+                    System.out.print("choose show pic service id--");
+                    int showId = getValidInt();
+                    showImagePre(showId);
+                    break;
+                case 6:
+                    System.out.print("choose add service id--");
+                    int addId = getValidInt();
+                    addImagePre(addId);
+                    break;
+            }
+            showWelcome.showGuide(1);
+            choose = in.nextInt();
+        }
+
+        System.exit(0);
+    }
+
 }
 

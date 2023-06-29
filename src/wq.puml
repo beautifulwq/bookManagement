@@ -1,40 +1,40 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-myManager *-- myService :包含
+role.myManager *-- role.myService :包含
 
-myConsumer *-- myService :包含
+role.myConsumer *-- role.myService :包含
 
-myManager --> showImage :调用
+role.myManager --> tools.showImage :调用
 
-myManager --> TestQuery :调用
+role.myManager --> sqlManage.TestQuery :调用
 
-myManager --> TestManage :调用
+role.myManager --> sqlManage.TestManage :调用
 
-myConsumer --> showImage :调用
+role.myConsumer --> tools.showImage :调用
 
-myConsumer --> TestQuery :调用
+role.myConsumer --> sqlManage.TestQuery :调用
 
-myConsumer --> TestManage :调用
+role.myConsumer --> sqlManage.TestManage :调用
 
 together {
-    class myService
-    class myConsumer
+    class role.myService
+    class role.myConsumer
 
 }
-TestManage-TestQuery
+sqlManage.TestManage-sqlManage.TestQuery
 
 
-class myManager{
-    - ArrayList<myService> serviceArrayList;
+class role.myManager{
+    - ArrayList<role.myService> serviceArrayList;
 
-    + myManager();
+    + role.myManager();
 
     ~ void showInfo();
 
     ~ void addImage(int id)
 
-    ~ void showImage(int id)
+    ~ void tools.showImage(int id)
 
     ~ void checkService();
 
@@ -48,8 +48,8 @@ class myManager{
 
 }
 
-class myConsumer{
-    - ArrayList<myService> serviceArrayList;
+class role.myConsumer{
+    - ArrayList<role.myService> serviceArrayList;
 
     ~ void showInfo();
 
@@ -61,7 +61,7 @@ class myConsumer{
 
 }
 
-class myService{
+class role.myService{
     - String name;
     - int id;
     - int useHour;
@@ -73,18 +73,18 @@ class myService{
     - String imagePath;
 }
 
-class showImage{
+class tools.showImage{
 
     + static void show(String path);
 
     + static String chooseImage();
 }
 
-class TestQuery{
-    + static ArrayList<myService> showMyQuery(String sql);
+class sqlManage.TestQuery{
+    + static ArrayList<role.myService> showMyQuery(String sql);
 }
 
-class TestManage{
+class sqlManage.TestManage{
     + static void updateRecord(String sql);
 
 }

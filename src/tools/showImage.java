@@ -1,8 +1,9 @@
+package tools;
+
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,7 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 
 //演示如何显示图像
-class showImage {
+public class showImage {
 
     public static void main(String[] args) throws IOException {
 //        String path ="P:\\playground\\javaplay\\bookmanage\\bookmanage\\picture\\bing.png";
@@ -58,7 +59,7 @@ class showImage {
             File selectedFile = jfc.getSelectedFile();
             filePath = selectedFile.getPath();
             filePath = filePath.replaceAll("\\\\", "/");
-          //  System.out.println(filePath);
+            //  System.out.println(filePath);
         }
         return filePath;
     }
