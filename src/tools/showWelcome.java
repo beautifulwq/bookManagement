@@ -7,22 +7,23 @@ import role.myConsumer;
 
 public class showWelcome {
     void begin() {
+        System.out.println("choose role:\n" +
+                "1: admin\n" +
+                "2: visitor");
+
         int choose;
-        try (Scanner in = new Scanner(System.in)) {
-            System.out.println("choose role:\n" +
-                    "1: admin\n" +
-                    "2: visitor");
-            choose = in.nextInt();
-            if (choose == 1) {
-                myManager manager = new myManager();
-                manager.start();
-            }
-            else {
-                myConsumer consumer = new myConsumer();
-                //todo: consumer.start
-                //consumer.start();
-            }
+        //todo: 输入choose
+        // Scanner in = new Scanner(System.in);
+        choose = 2;
+        if (choose == 1) {
+            myManager manager = new myManager();
+            manager.start();
         }
+        else {
+            myConsumer consumer = new myConsumer();
+            consumer.start();
+        }
+
     }
 
     static public void showGuide(int role) {
@@ -38,10 +39,18 @@ public class showWelcome {
             System.out.print("choose func--");
 
         }
+        else if (role == 2) {
+            System.out.println("\n0\tshow info\t\t" +
+                    "1\tcheck service\t\t" +
+                    "2\tbuy service\n" +
+                    "3\tadd comment\t\t" +
+                    "4\tshow image");
+            System.out.print("choose func--");
+        }
     }
 
     public static void main(String[] args) {
-        showWelcome.showGuide(1);
+        showWelcome.showGuide(2);
     }
 
 }

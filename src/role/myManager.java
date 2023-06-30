@@ -14,12 +14,7 @@ public class myManager extends commonRole {
     public static void main(String[] args) {
         myManager m1 = new myManager();
 
-
     }
-
-    private ArrayList<myService> serviceArrayList;
-
-    Scanner in = new Scanner(System.in);
 
     String getValidString() {
 
@@ -63,8 +58,6 @@ public class myManager extends commonRole {
 
     }
 
-
-
     public void addImagePre(int id) {
         String path;
         path = showImage.chooseImage();
@@ -77,16 +70,6 @@ public class myManager extends commonRole {
         }
         catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void showImagePre(int id) {
-        try {
-            showImage.show(serviceArrayList.get(id).getImagePath());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-
         }
     }
 
@@ -139,9 +122,6 @@ public class myManager extends commonRole {
             System.out.println("error input kind, should be int");
             System.out.println("exit sell");
             e.printStackTrace();
-        }
-        finally {
-            System.out.printf("exit programme\n");
         }
     }
 
