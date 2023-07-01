@@ -26,14 +26,5 @@ public class gui2 extends Application {
         stage.show();
     }
 
-    @FXML
-    void clickUserButton(ActionEvent actionEvent) {
 
-        System.out.println("user");
-    }
-
-    @FXML
-    void clickAdminButton(ActionEvent actionEvent) {
-        System.out.println("user");
-    }
 }

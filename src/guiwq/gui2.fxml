@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:controller="guiwq.gui2" alignment="CENTER" prefHeight="303.0" prefWidth="309.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="guiwq.logicSlove" alignment="CENTER" prefHeight="303.0" prefWidth="309.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="mode">
+            <Label   fx:id="mode"  alignment="CENTER" contentDisplay="CENTER" text="mode">
                <font>
                   <Font size="24.0" />
                </font>
@@ -19,7 +19,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
          <children>
-            <Button fx:id="adminButton" mnemonicParsing="false" onMouseClicked="#clickAdminButton" text="admin">
+            <Button fx:id="adminButton"  mnemonicParsing="false" onMouseClicked="#clickAdminButton" text="admin">
                <font>
                   <Font size="24.0" />
                </font>

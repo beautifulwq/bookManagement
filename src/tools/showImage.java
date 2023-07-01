@@ -41,7 +41,8 @@ public class showImage {
         JFrame frame = new JFrame(path); // 创建一个窗口对象
         frame.setSize(icon.getIconWidth(), icon.getIconHeight());// 必须设置宽高，否则没有窗体
         frame.setLocationRelativeTo(null);// 将窗口居中。若无该方法，窗口将位于屏幕左上角
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 设置默认的关闭操作：退出程序
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 设置默认的关闭操作：退出程序
+
         JLabel label = new JLabel(icon);
         frame.add(label, BorderLayout.CENTER);
         frame.pack();

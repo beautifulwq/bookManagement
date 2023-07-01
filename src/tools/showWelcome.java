@@ -6,15 +6,15 @@ import role.myManager;
 import role.myConsumer;
 
 public class showWelcome {
-    void begin() {
+    static public void begin() {
         System.out.println("choose role:\n" +
                 "1: admin\n" +
                 "2: visitor");
 
         int choose;
         //todo: 输入choose
-        // Scanner in = new Scanner(System.in);
-        choose = 2;
+        Scanner in = new Scanner(System.in);
+        choose = in.nextInt();
         if (choose == 1) {
             myManager manager = new myManager();
             manager.start();
@@ -50,7 +50,8 @@ public class showWelcome {
     }
 
     public static void main(String[] args) {
-        showWelcome.showGuide(2);
+        showWelcome.begin();
+        //showWelcome.showGuide(2);
     }
 
 }

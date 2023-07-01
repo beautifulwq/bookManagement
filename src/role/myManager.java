@@ -278,15 +278,15 @@ public class myManager extends commonRole {
                 case 5:
                     changePrice();
                     break;
-                case 7:
-                    System.out.print("choose show pic service id--");
-                    int showId = getValidInt();
-                    showImagePre(showId);
-                    break;
                 case 6:
                     System.out.print("choose add service id--");
                     int addId = getValidInt();
                     addImagePre(addId);
+                    break;
+                case 7:
+                    System.out.print("choose show pic service id--");
+                    int showId = getValidInt();
+                    showImagePre(showId);
                     break;
             }
             showWelcome.showGuide(1);
