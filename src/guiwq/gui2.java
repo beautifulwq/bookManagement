@@ -7,8 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.io.IOException;
 
 public class gui2 extends Application {
@@ -25,6 +29,5 @@ public class gui2 extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 
 }

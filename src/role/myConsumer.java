@@ -20,7 +20,7 @@ public class myConsumer extends commonRole{
         //c1.addComment();
     }
 
-    Scanner in =new Scanner(System.in);
+   // Scanner in =new Scanner(System.in);
    // private ArrayList<myService> serviceArrayList;
 
     public myConsumer() {
@@ -76,24 +76,24 @@ public class myConsumer extends commonRole{
         }
     }
 
-    public int getValidInt() {
-        int id = -1;
-        try {
-
-//            String tem = in.next();
-//            id = Integer.parseInt(tem);
-            id = in.nextInt();
-            while (id < 0 || id >= serviceArrayList.size()) {
-                System.out.printf("error id,should be [0,%d)\nchoose new id\n", serviceArrayList.size());
-                id = in.nextInt();
-            }
-
-        }
-        catch (InputMismatchException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
+//    public int getValidInt() {
+//        int id = -1;
+//        try {
+//
+////            String tem = in.next();
+////            id = Integer.parseInt(tem);
+//            id = in.nextInt();
+//            while (id < 0 || id >= serviceArrayList.size()) {
+//                System.out.printf("error id,should be [0,%d)\nchoose new id\n", serviceArrayList.size());
+//                id = in.nextInt();
+//            }
+//
+//        }
+//        catch (InputMismatchException e) {
+//            e.printStackTrace();
+//        }
+//        return id;
+//    }
 
     public void checkService() {
         System.out.printf("choose check id,should be [0,%d)----", serviceArrayList.size());

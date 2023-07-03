@@ -16,41 +16,41 @@ public class myManager extends commonRole {
 
     }
 
-    String getValidString() {
+//    public String getValidString() {
+//
+//        try {
+//            String anw = null;
+//            if (in.hasNextLine()) {
+//
+//                anw = in.nextLine();
+//            }
+//            else System.out.println("No input string in getValidString");
+//            return anw;
+//        }
+//        catch (InputMismatchException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-        try {
-            String anw = null;
-            if (in.hasNextLine()) {
-
-                anw = in.nextLine();
-            }
-            else System.out.println("No input string in getValidString");
-            return anw;
-        }
-        catch (InputMismatchException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public int getValidInt() {
-        int id = -1;
-        try {
-
-//            String tem = in.next();
-//            id = Integer.parseInt(tem);
-            id = in.nextInt();
-            while (id < 0 || id >= serviceArrayList.size()) {
-                System.out.printf("error id,should be [0,%d)\nchoose new id\n", serviceArrayList.size());
-                id = in.nextInt();
-            }
-
-        }
-        catch (InputMismatchException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
+//    public int getValidInt() {
+//        int id = -1;
+//        try {
+//
+////            String tem = in.next();
+////            id = Integer.parseInt(tem);
+//            id = in.nextInt();
+//            while (id < 0 || id >= serviceArrayList.size()) {
+//                System.out.printf("error id,should be [0,%d)\nchoose new id\n", serviceArrayList.size());
+//                id = in.nextInt();
+//            }
+//
+//        }
+//        catch (InputMismatchException e) {
+//            e.printStackTrace();
+//        }
+//        return id;
+//    }
 
     public myManager() {
         String sql = "select * from myservice order by id;";
