@@ -17,11 +17,7 @@ role.myConsumer --> sqlManage.TestQuery :调用
 
 role.myConsumer --> sqlManage.TestManage :调用
 
-' together {
-'     class role.myService
-'     class role.myConsumer
 
-' }
 
 
 class sqlManage.TestQuery{
@@ -34,17 +30,28 @@ class sqlManage.TestManage{
 }
 
 class role.commonRole{
-     + void showInfo()
+    # ArrayList<myService> serviceArrayList;
 
-     + void checkService()
+    + Scanner in
+    
+    + void showInfo()
+
+    + void start()
+
+    + void checkService()
+
+    + void showImagePre(int id)
+
+    + String getValidString()
+
+    + int getValidInt()
 }
 
 class role.myManager extends role.commonRole{
-    - ArrayList<role.myService> serviceArrayList;
 
     + role.myManager();
 
-    ~ void addImage(int id)
+    ~ void addImagePre(int id)
 
     ~ void tools.showImage(int id)
 
@@ -56,15 +63,16 @@ class role.myManager extends role.commonRole{
 
     ~ void addService()
 
+    + void start()
 }
 
 class role.myConsumer extends role.commonRole{
-    - ArrayList<role.myService> serviceArrayList;
 
     ~ void buyService();
 
     ~ void addComment()
 
+    + void start()
 }
 
 class role.myService{

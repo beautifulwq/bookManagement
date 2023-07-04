@@ -50,8 +50,9 @@ public class showWelcome {
     }
 
     public static void main(String[] args) {
+        // programme origin start
         showWelcome.begin();
-        //showWelcome.showGuide(2);
+        
     }
 
 }
