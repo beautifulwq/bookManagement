@@ -1,0 +1,24 @@
+@startmindmap func
+
+*[#Orange] 管理员manager
+**[#lightgreen] 检索设备
+**[#lightgreen] 展示图片
+**[#lightgreen] 展示信息
+**[#lightgreen] 获得合法字符和整数
+--[#lightgreen] 添加图片
+--[#lightgreen] 添加设备
+--[#lightgreen] 卖出设备
+--[#lightgreen] 删除设备
+--[#lightgreen] 改变价格
+
+
+*[#Orange] 顾客user
+**[#lightgreen] 检索设备
+**[#lightgreen] 展示图片
+**[#lightgreen] 展示信息
+--[#lightgreen] 购买设备
+--[#lightgreen] 添加评论
+**[#lightgreen] 获得合法字符和整数
+
+
+@endmindmap
