@@ -35,7 +35,8 @@ public class showWelcome {
                     "4\tdelete service\t\t" +
                     "5\tchange price\n" +
                     "6\tadd image\t\t\t" +
-                    "7\tshow image");
+                    "7\tshow image\t\t\t" +
+                    "8\texit");
             System.out.print("choose func--");
 
         }
@@ -44,7 +45,8 @@ public class showWelcome {
                     "1\tcheck service\t\t" +
                     "2\tbuy service\n" +
                     "3\tadd comment\t\t" +
-                    "4\tshow image");
+                    "4\tshow image\t\t\t" +
+                    "5\texit");
             System.out.print("choose func--");
         }
     }
@@ -52,7 +54,7 @@ public class showWelcome {
     public static void main(String[] args) {
         // programme origin start
         showWelcome.begin();
-        
+
     }
 
 }

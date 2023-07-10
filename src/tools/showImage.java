@@ -13,18 +13,9 @@ import javax.swing.filechooser.FileSystemView;
 
 //演示如何显示图像
 public class showImage {
-
-    public static void main(String[] args) throws IOException {
-//        String path ="P:\\playground\\javaplay\\bookmanage\\bookmanage\\picture\\bing.png";
-        String path = chooseImage();
-        showImage.show(path);
-        System.out.println(path);
-    }
-
     public static void show(String path) {
         // method1:把图片文件读到缓存图像
         BufferedImage image;
-
         try {
             image = ImageIO.read(new File(path));
         }
@@ -64,6 +55,4 @@ public class showImage {
         }
         return filePath;
     }
-
-
 }

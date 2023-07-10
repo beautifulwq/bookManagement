@@ -1,12 +1,10 @@
-package sqlManage;
+package sqlmanage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 //演示JDBC的变更类操作（含建表、改表结构、删表、增加记录、修改记录、删除记录）
 public class TestManage {

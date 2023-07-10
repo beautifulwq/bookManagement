@@ -1,6 +1,6 @@
 package role;
 
-import sqlManage.TestQuery;
+import sqlmanage.TestQuery;
 import tools.showImage;
 import java.util.ArrayList;
 import java.util.InputMismatchException;

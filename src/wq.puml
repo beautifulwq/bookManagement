@@ -7,24 +7,24 @@ role.myConsumer *-- role.myService :包含
 
 role.myManager --> tools.showImage :调用
 
-role.myManager --> sqlManage.TestQuery :调用
+role.myManager --> sqlmanage.TestQuery :调用
 
-role.myManager --> sqlManage.TestManage :调用
+role.myManager --> sqlmanage.TestManage :调用
 
 role.myConsumer --> tools.showImage :调用
 
-role.myConsumer --> sqlManage.TestQuery :调用
+role.myConsumer --> sqlmanage.TestQuery :调用
 
-role.myConsumer --> sqlManage.TestManage :调用
-
-
+role.myConsumer --> sqlmanage.TestManage :调用
 
 
-class sqlManage.TestQuery{
+
+
+class sqlmanage.TestQuery{
     + static ArrayList<role.myService> showMyQuery(String sql);
 }
 
-class sqlManage.TestManage{
+class sqlmanage.TestManage{
     + static void updateRecord(String sql);
 
 }

@@ -1,14 +1,12 @@
 package role;
 
-import sqlManage.TestManage;
-import sqlManage.TestQuery;
+import sqlmanage.TestManage;
+import sqlmanage.TestQuery;
 import tools.showImage;
 import tools.showWelcome;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class myManager extends commonRole {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package sqlManage;
+package sqlmanage;
 
 import role.myService;
 
@@ -26,7 +26,7 @@ public class TestQuery {
     }
 
 
-    //自己写一个
+    //showall
     public static ArrayList<myService> showMyQuery(String sql) {
         ArrayList<myService> serviceArrayList = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
@@ -47,14 +47,12 @@ public class TestQuery {
                 myService book = new myService(name, id, useHour, type, price, buyCnt, comment, haveCnt, path);
                 serviceArrayList.add(book);
                 String desc = String.format("序号为%d，品名为%s，现有数量为%d，已购买次数为为%d。", id, name, haveCnt, buyCnt);
-            //    System.out.println("当前信息为：" + desc);
+                //    System.out.println("当前信息为：" + desc);
             }
-
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-
         return serviceArrayList;
     }
 
@@ -77,15 +75,12 @@ public class TestQuery {
 
                 String path = rs.getString("imagepath");
 
-                String desc = String.format("序号为%d，品名为%s，类别为%s,现有数量为%d，已购买次数为为%d,价格为%d,图片路径为%s。", id, name, typeName, haveCnt, buyCnt, price, path);
+                String desc = String.format("序号为%d，品名为%s，类别为%s,现有数量为%d，已购买次数为为%d,价格为%d,评价为%d,图片路径为%s。", id, name, typeName, haveCnt, buyCnt, price, comment, path);
                 System.out.println("当前信息为：" + desc);
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }
