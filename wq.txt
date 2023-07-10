@@ -1,0 +1,20 @@
+src
+|-- role
+|   |-- myConsumer.java
+|   |-- myManager.java
+|   `-- myService.java
+|-- sql.sql
+|-- sqlManage
+|   |-- TestConnect.java
+|   |-- TestManage.java
+|   `-- TestQuery.java
+|-- testdata
+|   |-- generate.py
+|   `-- testData.csv
+|-- tools
+|   |-- showImage.java
+|   |-- showWelcome.java
+|   `-- testAll.java
+`-- wq.puml
+
+4 directories, 13 files

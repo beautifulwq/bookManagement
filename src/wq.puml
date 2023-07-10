@@ -1,0 +1,104 @@
+@startuml wq
+'https://plantuml.com/class-diagram
+
+role.myManager *-- role.myService :包含
+
+role.myConsumer *-- role.myService :包含
+
+role.myManager --> tools.showImage :调用
+
+role.myManager --> sqlmanage.TestQuery :调用
+
+role.myManager --> sqlmanage.TestManage :调用
+
+role.myConsumer --> tools.showImage :调用
+
+role.myConsumer --> sqlmanage.TestQuery :调用
+
+role.myConsumer --> sqlmanage.TestManage :调用
+
+
+
+
+class sqlmanage.TestQuery{
+    + static ArrayList<role.myService> showMyQuery(String sql);
+}
+
+class sqlmanage.TestManage{
+    + static void updateRecord(String sql);
+
+}
+
+class role.commonRole{
+    # ArrayList<myService> serviceArrayList;
+
+    + Scanner in
+    
+    + void showInfo()
+
+    + void start()
+
+    + void checkService()
+
+    + void showImagePre(int id)
+
+    + String getValidString()
+
+    + int getValidInt()
+}
+
+class role.myManager extends role.commonRole{
+
+    + role.myManager();
+
+    ~ void addImagePre(int id)
+
+    ~ void tools.showImage(int id)
+
+    ~ void sellService();
+
+    ~ void deleteService();
+
+    ~ void changePrice();
+
+    ~ void addService()
+
+    + void start()
+}
+
+class role.myConsumer extends role.commonRole{
+
+    ~ void buyService();
+
+    ~ void addComment()
+
+    + void start()
+}
+
+class role.myService{
+    - String name;
+    - int id;
+    - int useHour;
+    - int type;
+    - int price;
+    - int buyCnt;
+    - int comment;
+    - int haveCnt;
+    - String imagePath;
+}
+
+class tools.showImage{
+
+    + static void show(String path);
+
+    + static String chooseImage();
+}
+
+class tools.showWelcome{
+    ~ void begin()
+
+    + static void showGuide(int role)
+}
+
+
+@enduml

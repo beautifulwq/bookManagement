@@ -1,8 +1,9 @@
+package tools;
+
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,19 +12,10 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 
 //演示如何显示图像
-class showImage {
-
-    public static void main(String[] args) throws IOException {
-//        String path ="P:\\playground\\javaplay\\bookmanage\\bookmanage\\picture\\bing.png";
-        String path = chooseImage();
-        showImage.show(path);
-        System.out.println(path);
-    }
-
+public class showImage {
     public static void show(String path) {
         // method1:把图片文件读到缓存图像
         BufferedImage image;
-
         try {
             image = ImageIO.read(new File(path));
         }
@@ -40,7 +32,8 @@ class showImage {
         JFrame frame = new JFrame(path); // 创建一个窗口对象
         frame.setSize(icon.getIconWidth(), icon.getIconHeight());// 必须设置宽高，否则没有窗体
         frame.setLocationRelativeTo(null);// 将窗口居中。若无该方法，窗口将位于屏幕左上角
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 设置默认的关闭操作：退出程序
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 设置默认的关闭操作：退出程序
+
         JLabel label = new JLabel(icon);
         frame.add(label, BorderLayout.CENTER);
         frame.pack();
@@ -58,7 +51,7 @@ class showImage {
             File selectedFile = jfc.getSelectedFile();
             filePath = selectedFile.getPath();
             filePath = filePath.replaceAll("\\\\", "/");
-            System.out.println(filePath);
+            //  System.out.println(filePath);
         }
         return filePath;
     }
